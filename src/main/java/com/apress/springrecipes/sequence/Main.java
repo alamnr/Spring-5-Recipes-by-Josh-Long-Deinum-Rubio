@@ -3,6 +3,8 @@ package com.apress.springrecipes.sequence;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import com.apress.springrecipes.sequence.config.SequenceGeneratorConfiguration;
+import com.apress.springrecipes.sequence.config.ShopConfiguration;
+import com.apress.springrecipes.shop.Product;
 
 public class Main {
 	
@@ -17,7 +19,7 @@ public class Main {
 		System.out.println(generator.getSequence());
 		System.out.println(generator.getSequence());*/
 		
-		ApplicationContext  context = new AnnotationConfigApplicationContext("com.apress.springrecipes.sequence");
+		/*ApplicationContext  context = new AnnotationConfigApplicationContext("com.apress.springrecipes.sequence");
 		SequenceGenerator generator = (SequenceGenerator) context.getBean("sequenceGenerator");
 		
 		System.out.println(generator.getSequence());
@@ -26,7 +28,16 @@ public class Main {
 		SequenceDao sequenceDao  = context.getBean(SequenceDao.class);
 		
 		System.out.println(sequenceDao.getNextValue("IT"));
-		System.out.println(sequenceDao.getNextValue("IT"));
+		System.out.println(sequenceDao.getNextValue("IT"));*/
+		
+		ApplicationContext context  = new AnnotationConfigApplicationContext(ShopConfiguration.class);
+		
+		Product aaa = context.getBean("aaa",Product.class);
+		Product cdrw = context.getBean("cdrw", Product.class);
+		
+		System.out.println(aaa);
+		System.out.println(cdrw);
+		
 		
 	}
 			
