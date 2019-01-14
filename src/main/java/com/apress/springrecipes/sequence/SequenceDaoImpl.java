@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @Component("sequenceDao")
 public class SequenceDaoImpl implements SequenceDao {
 	
-	private final Map<String,Sequence> sequences = new HashMap<>();
-	private final Map<String, AtomicInteger> values = new HashMap<>();
+	private final Map<String,Sequence> sequences = new HashMap<String, Sequence>();
+	private final Map<String, AtomicInteger> values = new HashMap<String, AtomicInteger>();
 	
 	public SequenceDaoImpl() {
 		sequences.put("IT", new Sequence("IT", "30", "A"));
