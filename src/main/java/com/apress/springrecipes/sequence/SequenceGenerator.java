@@ -4,6 +4,8 @@ package com.apress.springrecipes.sequence;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Resource;
+//import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,20 +13,22 @@ public class SequenceGenerator {
 
 	private String prefix;
 	
-	@Autowired
+	// By default, the @Resource annotation works like Spring’s @Autowired annotation and attempts to autowire 	by type
+	 @Resource
+	// @Inject annotation attempts to autowire by type, like the @Resource and @Autowired annotations
+	//@Inject
 	private PrefixGenerator prefixGeneratorProperty;
 	
 	private String suffix;
 	private int initial;
 	
-	@Autowired
-    private PrefixGenerator[] prefixGeneratorsArray;
-	
-	@Autowired
-	private List<PrefixGenerator> prefixGeneratorList;
-	 
-	@Autowired
-	private Map<String, PrefixGenerator> prefixGeneratorsMap;
+	/*
+	 * @Autowired private PrefixGenerator[] prefixGeneratorsArray;
+	 * 
+	 * @Autowired private List<PrefixGenerator> prefixGeneratorList;
+	 * 
+	 * @Autowired private Map<String, PrefixGenerator> prefixGeneratorsMap;
+	 */
 	
 	private final AtomicInteger counter = new AtomicInteger();
 
@@ -33,15 +37,15 @@ public class SequenceGenerator {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Autowired(required=false)
-    public void myOwnCustomInjectionName(PrefixGenerator prefixGenerator) {
-        this.prefixGeneratorProperty = prefixGenerator;
-    }
-	
-	@Autowired(required=false)
-	public void setPrefixGeneratorProperty(PrefixGenerator prefixGeneratorProperty) {
-		this.prefixGeneratorProperty = prefixGeneratorProperty;
-	}
+	/*
+	 * @Autowired(required=false) public void
+	 * myOwnCustomInjectionName(PrefixGenerator prefixGenerator) {
+	 * this.prefixGeneratorProperty = prefixGenerator; }
+	 * 
+	 * @Autowired(required=false) public void
+	 * setPrefixGeneratorProperty(PrefixGenerator prefixGeneratorProperty) {
+	 * this.prefixGeneratorProperty = prefixGeneratorProperty; }
+	 */
 
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
@@ -60,4 +64,10 @@ public class SequenceGenerator {
 		builder.append(prefix).append(initial).append(counter.getAndIncrement()).append(suffix);
 		return builder.toString();
 	}
+
+	public PrefixGenerator getPrefixGeneratorProperty() {
+		return prefixGeneratorProperty;
+	}
+	
+	
 }
