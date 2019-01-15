@@ -1,7 +1,16 @@
 package com.apress.springrecipes.sequence;
 
+
+
+import java.io.IOException;
+import java.util.Properties;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
 import com.apress.springrecipes.sequence.config.SequenceGeneratorConfiguration;
 import com.apress.springrecipes.sequence.config.ShopConfiguration;
 import com.apress.springrecipes.shop.Product;
@@ -9,7 +18,7 @@ import com.apress.springrecipes.shop.ShopingCart;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		/*
 		ApplicationContext context = new AnnotationConfigApplicationContext(SequenceGeneratorConfiguration.class);
@@ -50,6 +59,7 @@ public class Main {
 		 * System.out.println(aaa); System.out.println(cdrw);
 		 */
 		
+		/*
 		ApplicationContext applicationContext  =  new AnnotationConfigApplicationContext(ShopConfiguration.class);
 		
 		Product aaa = applicationContext.getBean("aaa",Product.class);
@@ -66,7 +76,14 @@ public class Main {
 		cart2.addItem(dvdrw);
 		
 		
-		System.out.println("Shopping cart 2 contains " +cart2.getItems());
+		System.out.println("Shopping cart 2 contains " +cart2.getItems());  */
+		
+		ApplicationContext context = new AnnotationConfigApplicationContext(ShopConfiguration.class);
+		
+		Resource resource = new ClassPathResource("discounts.properties");
+        Properties props = PropertiesLoaderUtils.loadProperties(resource);
+        System.out.println("And don't forget our discounts!");
+        System.out.println(props);
 
 	}
 
