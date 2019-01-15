@@ -12,7 +12,7 @@ import com.apress.springrecipes.sequence.SequenceGenerator;
 @Configuration
 @Import(PrefixConfiguration.class)
 public class SequenceConfiguration {
-	
+
 	/*
 	 * @Bean public DatePrefixGenerator datePrefixGenerator() {
 	 * 
@@ -21,19 +21,19 @@ public class SequenceConfiguration {
 	 * 
 	 * }
 	 */
-	
+
 	@Value("#{datePrefixGenerator}")
 	private PrefixGenerator prefixGenerator;
-	
+
 	@Bean
 	public SequenceGenerator sequenceGenerator() {
-		SequenceGenerator sequenceGenerator  = new SequenceGenerator();
+		SequenceGenerator sequenceGenerator = new SequenceGenerator();
 		sequenceGenerator.setInitial(100000);
 		sequenceGenerator.setSuffix("A");
-		//sequenceGenerator.setPrefixGeneratorProperty(datePrefixGenerator());
-		//sequenceGenerator.setPrefixGeneratorProperty(prefixGenerator);
+		// sequenceGenerator.setPrefixGeneratorProperty(datePrefixGenerator());
+		// sequenceGenerator.setPrefixGeneratorProperty(prefixGenerator);
 		return sequenceGenerator;
-		
+
 	}
 
 }
