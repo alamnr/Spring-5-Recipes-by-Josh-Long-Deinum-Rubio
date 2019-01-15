@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
 
 import com.apress.springrecipes.shop.BannerLoader;
@@ -59,6 +60,14 @@ public class ShopConfiguration {
 		BannerLoader bl = new BannerLoader();
 		bl.setBanner(banner);
 		return bl;
+	}
+	
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+		messageSource.setBasename("classpath:messages");
+		messageSource.setCacheSeconds(1);
+		return messageSource;
 	}
 
 }
