@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 
 import com.apress.springrecipes.shop.BannerLoader;
 import com.apress.springrecipes.shop.Battery;
+import com.apress.springrecipes.shop.Cashier;
 import com.apress.springrecipes.shop.Disc;
 import com.apress.springrecipes.shop.Product;
 
@@ -69,5 +70,17 @@ public class ShopConfiguration {
 		messageSource.setCacheSeconds(1);
 		return messageSource;
 	}
+	
+	@Bean(initMethod="openFile", destroyMethod="closeFile")
+	public Cashier cashier() {
+		
+		String path = System.getProperty("java.io.tmpdir")+"/cashier";
+		Cashier c1 = new Cashier();
+		c1.setFileName("checkout");
+		c1.setPath(path);
+		System.out.println(path.toString());
+		return c1;
+	}
+	
 
 }

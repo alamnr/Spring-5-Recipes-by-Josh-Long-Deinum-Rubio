@@ -89,6 +89,7 @@ public class Main {
         System.out.println("And don't forget our discounts!");
         System.out.println(props);  */
 		
+		/*
 		ApplicationContext context  = new AnnotationConfigApplicationContext(ShopConfiguration.class);
 		
 		String alert = context.getMessage("alert.checkout",null, Locale.US);
@@ -99,7 +100,7 @@ public class Main {
         Cashier cashier  =  context.getBean(Cashier.class);
         ShopingCart cart = new ShopingCart();
         cart.addItem(context.getBean("aaa",Product.class));
-        cashier.checkout(cart);
+        cashier.checkout(cart);  */
 
 	}
 
