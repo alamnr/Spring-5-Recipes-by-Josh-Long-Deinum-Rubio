@@ -3,6 +3,7 @@ package com.apress.springrecipes.sequence.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 
 import com.apress.springrecipes.sequence.DatePrefixGenerator;
@@ -26,6 +27,7 @@ public class SequenceConfiguration {
 	private PrefixGenerator prefixGenerator;
 
 	@Bean
+	@DependsOn("datePrefixGenerator") // the declaration @DependsOn("datePrefixGenerator") ensures the 	datePrefixGenerator bean is created before the sequenceGenerator bean
 	public SequenceGenerator sequenceGenerator() {
 		SequenceGenerator sequenceGenerator = new SequenceGenerator();
 		sequenceGenerator.setInitial(100000);
