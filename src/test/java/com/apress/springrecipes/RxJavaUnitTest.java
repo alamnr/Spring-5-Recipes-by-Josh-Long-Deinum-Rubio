@@ -38,80 +38,73 @@ the onError() method is called on each subscriber.
  */
 
 public class RxJavaUnitTest {
-	
+
 	String result = "";
-	
+
 	@Test
 	public void testReturnAValue() {
-		
+
 		result = "";
 		Observable<String> observer = Observable.just("Hello");
-		observer.subscribe(s->result=s);
+		observer.subscribe(s -> result = s);
 		assertTrue(result.equals("Hello"));
 	}
-	
-	@Test 
+
+	@Test
 	public void testExpectNPE() {
-		
+
 		Observable<Todo> todoObservable = Observable.create(new ObservableOnSubscribe<Todo>() {
 
 			@Override
 			public void subscribe(ObservableEmitter<Todo> emitter) throws Exception {
 				try {
 					List<Todo> todos = RxJavaUnitTest.this.getTodos();
-					
-					if(todos == null) {
+
+					if (todos == null) {
 						throw new NullPointerException("todos was null");
 					}
 					for (Todo todo : todos) {
 						emitter.onNext(todo);
 					}
 					emitter.onComplete();
-					
-				}catch(Exception e) {
+
+				} catch (Exception e) {
 					emitter.onError(e);
 				}
-				
+
 			}
 		});
 		TestObserver<Object> testObserver = new TestObserver<>();
 		todoObservable.subscribeWith(testObserver);
-		
+
 		System.out.println(testObserver);
-		
+
 		testObserver.assertError(NullPointerException.class);
-		
+
 		Observable.just("Hello", "World").subscribe(System.out::println);
-		List<String> words = Arrays.asList(
-				 "the",
-				 "quick",
-				 "brown",
-				 "fox",
-				 "jumped",
-				 "over",
-				 "the",
-				 "lazy",
-				 "dog"
-				);
-		//Observable.just(words).subscribe(System.out::println);
-		Observable.just(words).subscribe(word->System.out.println(word));
-		
-		
-		Observable.fromIterable(words)
-		 .zipWith(Observable.range(1, Integer.MAX_VALUE), 
-		    (string, count)->String.format("%2d. %s", count, string))
-		 .subscribe(System.out::println);
-		
-		
+		List<String> words = Arrays.asList("the", "quick", "brown", "fox", "jumped", "over", "the", "lazy", "dog");
+		// Observable.just(words).subscribe(System.out::println);
+		Observable.just(words).subscribe(word -> System.out.println(word));
+
+		Observable.fromIterable(words).zipWith(Observable.range(1, Integer.MAX_VALUE),
+				(string, count) -> String.format("%2d. %s", count, string)).subscribe(System.out::println);
+
+		/*
+		 * Observable.fromIterable(words) .flatMap(word ->
+		 * Observable.fromIterable(word.split(""))) .distinct() .sorted()
+		 * .zipWith(Observable.range(1, Integer.MAX_VALUE), (string, count) ->
+		 * String.format("%2d. %s", count, string)) .subscribe(System.out::println);
+		 */
+
 	}
-	
-	private List<Todo> getTodos(){
+
+	private List<Todo> getTodos() {
 		return null;
-		//return Arrays.asList(new Todo(),new Todo());
+		// return Arrays.asList(new Todo(),new Todo());
 	}
-	
-	public class Todo	{
-		
+
+	public class Todo {
+
 	}
 
 }
