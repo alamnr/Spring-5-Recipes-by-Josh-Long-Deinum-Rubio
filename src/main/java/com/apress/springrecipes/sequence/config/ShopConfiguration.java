@@ -1,5 +1,8 @@
 package com.apress.springrecipes.sequence.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +17,8 @@ import com.apress.springrecipes.shop.Battery;
 import com.apress.springrecipes.shop.Cashier;
 import com.apress.springrecipes.shop.Disc;
 import com.apress.springrecipes.shop.Product;
-import com.apress.springrecipes.shop.ProductCreator;
+import com.apress.springrecipes.shop.ProductCreatorInstance;
+import com.apress.springrecipes.shop.ProductCreatorStatic;
 
 @Configuration
 @PropertySource("classpath:discounts.properties")
@@ -31,6 +35,18 @@ public class ShopConfiguration {
 	public static PropertySourcesPlaceholderConfigurer PropertySourcesPlaceholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
+	
+	@Bean
+	public ProductCreatorInstance productCreatorInstanceMethodfactory() {
+		
+		ProductCreatorInstance productCreatorInstanceFactory = new ProductCreatorInstance();
+		Map<String,Product> products = new HashMap<>();
+		products.put("aaa", new Battery("AAA", 2.5));
+        products.put("cdrw", new Disc("CD-RW", 1.5));
+        products.put("dvdrw", new Disc("DVD-RW", 3.0));
+        productCreatorInstanceFactory.setProducts(products);
+        return productCreatorInstanceFactory;
+	}
 
 	/*
 	 * @Bean public Product aaa() { Battery p1 = new Battery(); p1.setName("AAA");
@@ -39,7 +55,11 @@ public class ShopConfiguration {
 	
 	@Bean
 	public Product aaa() {
-		return ProductCreator.createProduct("aaa");
+		// using static factory method
+		//return ProductCreatorStatic.createProduct("aaa");
+		
+		// using instance factory method
+		return productCreatorInstanceMethodfactory().createProduct("aaa");
 	}
 
 	/*
@@ -49,7 +69,11 @@ public class ShopConfiguration {
 	
 	@Bean
 	public Product cdrw() {
-		return ProductCreator.createProduct("cdrw");
+		// using static factory method
+		// return ProductCreatorStatic.createProduct("cdrw");
+		
+		// using instance factory method
+		return productCreatorInstanceMethodfactory().createProduct("cdrw");
 	}
 
 	/*
@@ -59,7 +83,11 @@ public class ShopConfiguration {
 	
 	@Bean
 	public Product dvdrw() {
-		return ProductCreator.createProduct("dvdrw");
+		// using static factory method
+		// return ProductCreatorStatic.createProduct("dvdrw");
+		
+		// using instance factory method
+		return productCreatorInstanceMethodfactory().createProduct("dvdrw");
 	}
 
 	@Bean

@@ -1,6 +1,6 @@
 package com.apress.springrecipes.shop;
 
-public class ProductCreator {
+public class ProductCreatorStatic {
 	
 	public static Product createProduct(String productId) {
 		if("aaa".equals(productId)) {
