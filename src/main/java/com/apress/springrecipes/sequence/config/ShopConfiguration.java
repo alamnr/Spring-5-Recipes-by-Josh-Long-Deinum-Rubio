@@ -14,6 +14,7 @@ import com.apress.springrecipes.shop.Battery;
 import com.apress.springrecipes.shop.Cashier;
 import com.apress.springrecipes.shop.Disc;
 import com.apress.springrecipes.shop.Product;
+import com.apress.springrecipes.shop.ProductCreator;
 
 @Configuration
 @PropertySource("classpath:discounts.properties")
@@ -31,28 +32,34 @@ public class ShopConfiguration {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
+	/*
+	 * @Bean public Product aaa() { Battery p1 = new Battery(); p1.setName("AAA");
+	 * p1.setPrice(2.5); p1.setRechargeable(true); return p1; }
+	 */
+	
 	@Bean
 	public Product aaa() {
-		Battery p1 = new Battery();
-		p1.setName("AAA");
-		p1.setPrice(2.5);
-		p1.setRechargeable(true);
-		return p1;
+		return ProductCreator.createProduct("aaa");
 	}
 
+	/*
+	 * @Bean public Product cdrw() { Disc p2 = new Disc("CD-RW", 1.5);
+	 * p2.setCapacity(700); return p2; }
+	 */
+	
 	@Bean
 	public Product cdrw() {
-		Disc p2 = new Disc("CD-RW", 1.5);
-		p2.setCapacity(700);
-		return p2;
+		return ProductCreator.createProduct("cdrw");
 	}
 
+	/*
+	 * @Bean public Product dvdrw() { Disc p2 = new Disc("DVD-RW", 3.0);
+	 * p2.setCapacity(700); p2.setPrice(specialEndofYearDiscount); return p2; }
+	 */
+	
 	@Bean
 	public Product dvdrw() {
-		Disc p2 = new Disc("DVD-RW", 3.0);
-		p2.setCapacity(700);
-		p2.setPrice(specialEndofYearDiscount);
-		return p2;
+		return ProductCreator.createProduct("dvdrw");
 	}
 
 	@Bean

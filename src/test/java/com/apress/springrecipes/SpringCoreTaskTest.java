@@ -1,5 +1,6 @@
 package com.apress.springrecipes;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -14,7 +15,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.apress.springrecipes.sequence.config.ShopConfiguration;
+import com.apress.springrecipes.shop.Battery;
 import com.apress.springrecipes.shop.Cashier;
+import com.apress.springrecipes.shop.Disc;
+import com.apress.springrecipes.shop.Product;
 
 public class SpringCoreTaskTest {
 
@@ -59,6 +63,20 @@ public class SpringCoreTaskTest {
 
 		assertNull(outValue);
 
+	}
+	
+	@Test
+	public void testStaticInstanceAndSpringBeanFactoryMethod() {
+		ApplicationContext context = new AnnotationConfigApplicationContext(ShopConfiguration.class);
+		Product aaa = context.getBean("aaa",Product.class);
+		Product cdrw = context.getBean("cdrw",Product.class);
+		Product dvdrw = context.getBean("dvdrw",Product.class);
+		
+		assertNotNull(aaa);
+		assertEquals(Battery.class, ((Battery)aaa).getClass());
+		
+		assertNotNull(cdrw);
+		assertEquals(Disc.class, ((Disc)cdrw).getClass());
 	}
 
 }
